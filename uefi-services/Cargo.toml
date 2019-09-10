@@ -16,6 +16,8 @@ is-it-maintained-open-issues = { repository = "rust-osdev/uefi-rs" }
 
 [dependencies]
 rlibc = "1.0.0"
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
 x86_64 = "0.7.5"
 
 uefi = { version = "0.3.2", features = ["alloc", "logger"] }
@@ -24,3 +26,4 @@ log = { version = "0.4.8", default-features = false }
 [features]
 # Enable QEMU-specific functionality
 qemu = []
+
