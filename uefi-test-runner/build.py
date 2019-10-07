@@ -30,7 +30,7 @@ SETTINGS = {
     'qemu_binary': 'qemu-system-x86_64',
     # Path to directory containing `OVMF_{CODE/VARS}.fd`.
     # TODO: use installed OVMF, if available.
-    'ovmf_dir': WORKSPACE_DIR / 'uefi-test-runner',
+    'ovmf_dir': Path.home() / 'qemu/share/qemu/',
 }
 
 def build_dir():
@@ -101,10 +101,10 @@ def doc():
 
 def config_qemu_x86_64(qemu_monitor_pipe = 'qemu-monitor'):
     ovmf_dir = SETTINGS['ovmf_dir']
-    ovmf_code, ovmf_vars = ovmf_dir / 'OVMF_CODE.fd', ovmf_dir / 'OVMF_VARS.fd'
+    ovmf_code, ovmf_vars = ovmf_dir / 'edk2-x86_64-code.fd', ovmf_dir / 'edk2-i386-vars.fd'
 
     if not ovmf_code.is_file():
-        raise FileNotFoundError(f'OVMF_CODE.fd not found in the `{ovmf_dir}` directory')
+        raise FileNotFoundError(f'edk2-x86_64-code.fd not found in the `{ovmf_dir}` directory')
 
     examples_dir = build_dir() / 'examples'
 

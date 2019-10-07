@@ -12,12 +12,13 @@ install:
   - source "$HOME/.cargo/env"
   - rustc -V
   - cargo -V
-  # Current nightly cannot install clippy
-  - rustup toolchain install nightly-2018-12-27
+  # after nightly-2019-10-05 cannot install clippy
+  - rustup toolchain install nightly-2019-10-04
+  - rustup default nightly-2019-10-04
   # Required by cargo-xbuild
   - rustup component add rust-src
   # Required by cargo-xclippy
-  - rustup component add clippy --toolchain=nightly || cargo install --git https://github.com/rust-lang/rust-clippy/ --force clippy
+  - rustup component add clippy --toolchain=nightly-2019-10-04 || cargo install --git https://github.com/rust-lang/rust-clippy/ --force clippy
   # For checking the code's formatting
   - rustup component add rustfmt
   # Try installing cargo-xbuild if it's not already installed
