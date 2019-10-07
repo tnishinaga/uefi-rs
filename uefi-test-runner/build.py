@@ -98,12 +98,8 @@ def doc():
         '--package', 'uefi-services',
     ])
 
-def run_qemu():
-    'Runs the code in QEMU.'
 
-    # Rebuild all the changes.
-    build('--features', 'qemu')
-
+def config_qemu_x86_64(qemu_monitor_pipe = 'qemu-monitor'):
     ovmf_dir = SETTINGS['ovmf_dir']
     ovmf_code, ovmf_vars = ovmf_dir / 'OVMF_CODE.fd', ovmf_dir / 'OVMF_VARS.fd'
 
@@ -111,8 +107,6 @@ def run_qemu():
         raise FileNotFoundError(f'OVMF_CODE.fd not found in the `{ovmf_dir}` directory')
 
     examples_dir = build_dir() / 'examples'
-
-    qemu_monitor_pipe = 'qemu-monitor'
 
     qemu_flags = [
         # Disable default devices.
@@ -152,6 +146,17 @@ def run_qemu():
         # Only enable when debugging UEFI boot:
         #'-debugcon', 'file:debug.log', '-global', 'isa-debugcon.iobase=0x402',
     ]
+    return qemu_flags
+
+
+def run_qemu():
+    'Runs the code in QEMU.'
+
+    # Rebuild all the changes.
+    build('--features', 'qemu')
+
+    qemu_monitor_pipe = 'qemu-monitor'
+    qemu_flags = config_qemu_x86_64(qemu_monitor_pipe)
 
     # When running in headless mode we don't have video, but we can still have
     # QEMU emulate a display and take screenshots from it.
