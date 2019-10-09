@@ -27,7 +27,7 @@ SOFTWARE.
 
 set -e
 
-VERSION=4.0.0
+VERSION=3.1.0
 ARCHES=x86_64
 TARGETS=${QEMU_TARGETS:=$(echo $ARCHES | sed 's#$# #;s#\([^ ]*\) #\1-softmmu \1-linux-user #g')}
 
