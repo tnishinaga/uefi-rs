@@ -42,6 +42,7 @@ fn efi_main(image: Handle, st: SystemTable<Boot>) -> Status {
     // TODO: test the runtime services.
     // These work before boot services are exited, but we'd probably want to
     // test them after exit_boot_services...
+    info!("shutdown");
 
     shutdown(image, st);
 }
