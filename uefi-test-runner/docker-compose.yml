@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  test-runner:
+    build: .
+    container_name: test-runner
+    volumes:
+      - ../:/root/uefi-rs
+    
+    command: |
+      bash -c '
+        cd /root/uefi-rs/uefi-test-runner
+        cp ~/*.fd ./
+        cargo fmt --all -- --check
+        python3.6 ./build.py clippy
+        python3.6 ./build.py run --headless
+      '
