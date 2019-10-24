@@ -37,6 +37,11 @@ pub fn test(bt: &BootServices) {
             .read(&mut input)
             .expect_success("Failed to read from serial port");
 
+        // Disable loopback to output assert message
+        serial
+            .set_control_bits(old_ctrl_bits & ControlBits::SETTABLE)
+            .expect_success("Could not restore the serial device state");
+
         assert_eq!(&OUTPUT[..], &input[..]);
 
         // Clean up after ourselves
